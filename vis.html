@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>TreeCloud BandL</title>
+
+		<style>
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
+	<script type="text/javascript" src="d3.v2.js"></script>
+		<script src="d3.tip.v0.6.3.js"></script>
+	</head>
+	<body>
+
+<h2>Tree constructed from the text using the algorithm proposed by Barthelemy and Luong (1987)</h2>
+<h3><a href="Dendro.htm">Click here to view the Circular Dendrogram and Phylogram Visualization.</a></h3>
+
+<script type="text/javascript" charset="utf-8">
+			var w = 1060, h = 900;
+
+			var labelDistance = 0;
+
+			
+			var nodes = [];
+			var labelAnchors = [];
+			var labelAnchorLinks = [];
+			var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Occurences:</strong><br>"+tipArray[labels.indexOf(d.node.label)];})
+
+var vis = d3.select("body").append("svg:svg").attr("width", w).attr("height", h);
+vis.call(tip);
+			var links = [];var num=32;
+var labels=["Calculators","Converters","tutorials","Hex","Color","code","Converter","also","the","color","This","tool","to","Rgb","red","green","is","an","in","and","are","Cmyk","Hsv","conversion","Hsl","Calculator","calculators","conversions","Geometry","math","maths","tools","(Calculators:0.3304,Converters:0.3862,tutorials:0.4202,and:0.3671,Calculator:0.39,calculators:0.3866,conversions:0.4372,Geometry:0.4,math:0.4015)","(red:0.2695,green:0.2711,is:0.3085,an:0.387)","(are:0.4415,maths:0.4774)","(also:0.4152,the:0.3853,This:0.3492,tool:0.3928,in:0.4589,tools:0.4638,(Calculators:0.3304,Converters:0.3862,tutorials:0.4202,and:0.3671,Calculator:0.39,calculators:0.3866,conversions:0.4372,Geometry:0.4,math:0.4015):0.5013,(are:0.4415,maths:0.4774):0.4766)","(color:0.3058,(red:0.2695,green:0.2711,is:0.3085,an:0.387):0.3492)","(to:0.3162,conversion:0.2929,Hsl:0.2725)","(Cmyk:0.06659,Hsv:0.07627)","(Hex:0.2873,Color:0.2553,code:0.397,Converter:0.3243,(color:0.3058,(red:0.2695,green:0.2711,is:0.3085,an:0.387):0.3492):0.4404)","(Rgb:0.3369,(also:0.4152,the:0.3853,This:0.3492,tool:0.3928,in:0.4589,tools:0.4638,(Calculators:0.3304,Converters:0.3862,tutorials:0.4202,and:0.3671,Calculator:0.39,calculators:0.3866,conversions:0.4372,Geometry:0.4,math:0.4015):0.5013,(are:0.4415,maths:0.4774):0.4766):0.4836,(to:0.3162,conversion:0.2929,Hsl:0.2725):0.3351,(Cmyk:0.06659,Hsv:0.07627):0.3417)"];
+var connect1=[32,32,32,32,32,32,32,32,32,33,33,33,33,34,34,35,35,35,35,35,35,35,35,36,36,37,37,37,38,38,39,39,39,39,39,40,40,40,40,39];
+var connect2=[0,1,2,19,25,26,27,28,29,14,15,16,17,20,30,7,8,10,11,18,31,32,34,9,33,12,23,24,21,22,3,4,5,6,36,13,35,37,38,40];
+var sizes=[19,11,11,14,18,15,10,10,14,15,13,10,19,16,10,10,11,11,14,19,11,10,11,15,11,13,10,10,10,13,10,10];
+var colors=["#FF3300","#668AA8","#668AA8","#E76200","#E76200","#E76200","#B8C9D6","#B8C9D6","#E76200","#E76200","#E76200","#B8C9D6","#FF3300","#E76200","#B8C9D6","#B8C9D6","#668AA8","#668AA8","#E76200","#FF3300","#668AA8","#B8C9D6","#668AA8","#E76200","#668AA8","#E76200","#B8C9D6","#B8C9D6","#B8C9D6","#E76200","#B8C9D6","#B8C9D6"];
+var freqs=[16,4,4,6,13,7,3,3,6,7,5,3,14,9,3,3,4,4,6,14,4,3,4,8,4,5,3,3,3,5,3,3];
+var tipArray=[];
+
+d3.text("text01.txt",function(fileText){
+var res = fileText.split(" ");
+
+for(var i=0;i<num;i++)
+{
+var str="<span style='color:steelBlue'>... ";
+var occ=[];
+for(var j=0;j<res.length;j++)
+{
+if((res[j].toLowerCase().replace(/[\.,-\/#!$12\[34\n567\]8\'9\"0%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ")==labels[i]))
+{
+occ.push(j);
+}
+}
+
+
+for(var j=0;j<occ.length;j++)
+{
+if(res[occ[j]-5])
+str=str+res[occ[j]-5]+" ";
+if(res[occ[j]-4])
+str=str+res[occ[j]-4]+" ";
+if(res[occ[j]-3])
+str=str+res[occ[j]-3]+" ";
+if(res[occ[j]-2])
+str=str+res[occ[j]-2]+" ";
+if(res[occ[j]-1])
+str=str+res[occ[j]-1]+" ";
+
+str=str+"</span><span style='color:red'>";
+str=str+res[occ[j]]+" ";
+str=str+"</span><span style='color:steelBlue'>";
+if(res[occ[j]+1])
+str=str+res[occ[j]+1]+" ";
+if(res[occ[j]+2])
+str=str+res[occ[j]+2]+" ";
+if(res[occ[j]+3])
+str=str+res[occ[j]+3]+" ";
+if(res[occ[j]+4])
+str=str+res[occ[j]+4]+" ";
+if(res[occ[j]+5])
+str=str+res[occ[j]+5]+" ";
+str=str+"...";
+if(j<occ.length-1)
+str=str+"<br>..."
+};
+str=str+"</span>";
+tipArray.push(str);
+};
+
+
+});
+
+
+			for(var i = 0; i < labels.length; i++) {
+				if(i<num)
+				var node = {
+					label : labels[i]
+				};
+				else
+					var node={label : ""};
+				nodes.push(node);
+				labelAnchors.push({
+					node : node
+				});
+				labelAnchors.push({
+					node : node
+				});
+			};
+
+			for(var i = 0; i < connect1.length; i++) {
+				
+					
+						links.push({
+							source : connect1[i],
+							target : connect2[i],
+							weight : 0.1
+						});
+				}
+			for(var i = 0; i < nodes.length; i++) {
+				labelAnchorLinks.push({
+					source : i * 2,
+					target : i * 2 + 1,
+					weight : 1
+				});
+			};
+
+			var force = d3.layout.force().size([w, h]).nodes(nodes).links(links).gravity(1).linkDistance(60).charge(-3000).linkStrength(function(x) {
+				return x.weight * 10
+			});
+
+
+
+			force.start();
+
+			var force2 = d3.layout.force().nodes(labelAnchors).links(labelAnchorLinks).gravity(0).linkDistance(0).linkStrength(8).charge(-100).size([w, h]);
+			force2.start();
+
+			var link = vis.selectAll("line.link").data(links).enter().append("svg:line").attr("class", "link").style("stroke", "#CCC");
+
+			var node = vis.selectAll("g.node").data(force.nodes()).enter().append("svg:g").attr("class", "node");
+			node.append("svg:circle").attr("r", function(n){if(n.label!="")
+				return 5;else 
+				return 3;})
+			.style("fill", "#555").style("stroke", "#FFF").style("stroke-width", 3);
+			node.call(force.drag);
+
+
+			var anchorLink = vis.selectAll("line.anchorLink").data(labelAnchorLinks)//.enter().append("svg:line").attr("class", "anchorLink").style("stroke", "#999");
+
+			var anchorNode = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr("class", "anchorNode");
+			anchorNode.append("svg:circle").attr("r", 0).style("fill", "#FFF");
+				anchorNode.append("svg:text").text(function(d, i) {
+				return i % 2 == 0 ? "" : d.node.label
+			}).style("fill", function(d){return colors[labels.indexOf(d.node.label)];}).style("font-family", "Arial").style("font-size", function(d){return sizes[labels.indexOf(d.node.label)];})
+				.on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+
+			var updateLink = function() {
+				this.attr("x1", function(d) {
+					return d.source.x;
+				}).attr("y1", function(d) {
+					return d.source.y;
+				}).attr("x2", function(d) {
+					return d.target.x;
+				}).attr("y2", function(d) {
+					return d.target.y;
+				});
+
+			}
+
+			var updateNode = function() {
+				this.attr("transform", function(d) {
+					return "translate(" + d.x + "," + d.y + ")";
+				});
+
+			}
+
+
+			force.on("tick", function() {
+
+				force2.start();
+
+				node.call(updateNode);
+
+				anchorNode.each(function(d, i) {
+					if(i % 2 == 0) {
+						d.x = d.node.x;
+						d.y = d.node.y;
+					} else {
+						var b = this.childNodes[1].getBBox();
+
+						var diffX = d.x - d.node.x;
+						var diffY = d.y - d.node.y;
+
+						var dist = Math.sqrt(diffX * diffX + diffY * diffY);
+
+						var shiftX = b.width * (diffX - dist) / (dist * 2);
+						shiftX = Math.max(-b.width, Math.min(0, shiftX));
+						var shiftY = 5;
+						this.childNodes[1].setAttribute("transform", "translate(" + shiftX + "," + shiftY + ")");
+					}
+				});
+
+
+				anchorNode.call(updateNode);
+
+				link.call(updateLink);
+				anchorLink.call(updateLink);
+
+			});
+
+		</script>
+<h2>The Implementation of the algorithm has been programmed in C and the visualization in JavaScript (with extensize use of the d3.js library)  by S Deepak Srinivas</h2>
+	</body>
+</html>
